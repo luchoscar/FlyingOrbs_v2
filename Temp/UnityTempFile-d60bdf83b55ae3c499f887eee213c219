@@ -1,0 +1,49 @@
+-debug
+-target:library
+-i:UnityEngine
+-i:System.Collections
+-base:UnityEngine.MonoBehaviour
+-nowarn:BCW0016
+-nowarn:BCW0003
+-method:Main
+-out:Temp/Assembly-UnityScript.dll
+-x-type-inference-rule-attribute:UnityEngineInternal.TypeInferenceRuleAttribute
+-pragmas:strict,downcast
+-define:UNITY_ANDROID
+-define:ENABLE_MICROPHONE
+-define:ENABLE_IMAGEEFFECTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_AUDIO_FMOD
+-define:ENABLE_NETWORK
+-define:ENABLE_MONO
+-define:ENABLE_PHYSICS
+-define:ENABLE_TERRAIN
+-define:ENABLE_CACHING
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_GENERICS
+-define:UNITY_ANDROID_API
+-define:ENABLE_CLOTH
+-define:ENABLE_AUDIO
+-define:ENABLE_WWW
+-define:ENABLE_SHADOWS
+-define:UNITY_4_1_5
+-define:UNITY_4_1
+-r:"C:/Program Files (x86)/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/Managed/UnityEngine.dll"
+-r:Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+-r:Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll
+-disable-eval:eval is not supported on the current build target (Android).
+"Assets/Scripts/Destroy Script/DestroyGameOver.js"
+"Assets/Scripts/Destroy Script/DoNotDestroy.js"
+"Assets/Scripts/Energy Orbs/EnergyOrbsAI.js"
+"Assets/Scripts/GUI SCripts/GUI_Game_Over.js"
+"Assets/Scripts/GUI SCripts/GUI_InBetweenLevelScript.js"
+"Assets/Scripts/GUI SCripts/GUI_Instruction_Script.js"
+"Assets/Scripts/GUI SCripts/GUI_Intro_Script.js"
+"Assets/Scripts/GUI SCripts/Info.js"
+"Assets/Scripts/GUI Text Scripts/EnergyAI.js"
+"Assets/Scripts/GUI Text Scripts/ScoreAI.js"
+"Assets/Scripts/Global Variables/GlobalVariablesHolder.js"
+"Assets/Scripts/Global Variables/LevelCreator.js"
+Assets/Scripts/Particles/Orb_Explosion.js
+Assets/Scripts/Ship/HookAnimation.js
+Assets/Scripts/Ship/ShipAI.js
