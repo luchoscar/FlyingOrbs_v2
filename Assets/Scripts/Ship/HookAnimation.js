@@ -52,7 +52,10 @@ function SetEndHock(position_In : Vector3)
 {
 	Hook_Position = position_In;
 	animate = true;
-	transform.gameObject.AddComponent(BoxCollider);	//add collider component to this object
+	
+	if (transform.collider == null)
+		transform.gameObject.AddComponent(BoxCollider);	//add collider component to this object
+		
 	transform.collider.isTrigger = animate;
 }
 

@@ -1,3 +1,5 @@
+#pragma strict
+
 var timeOut = 1.0;
 var detachChildren = false;
 

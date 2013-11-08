@@ -23,6 +23,8 @@ var energy_wave_force : float = 30.5f;
 var Ship_Crash : Transform;				//explosion prefab
 var doubleTouch : boolean = false;
 
+private var applyForce : boolean = false;
+
 function Awake () 
 {
 	transform.position = transform.parent.position;
@@ -45,47 +47,74 @@ function Update ()
 	if(transform.GetComponent(GlobalVariablesHolder).ENERGY > 0.0)
 	{
 		//only create tension if no key is down
-		if (!create_tension)
+		if (create_tension)
 		{
-			if (Input.GetKeyDown("d"))
-			{
-				direction = transform.parent.right;
-				GetTangetPoint(direction);
-			}
-			if (Input.GetKeyDown("a"))
-			{
-				direction = transform.parent.right * -1.0;
-				GetTangetPoint(direction);
-			}
-			if (Input.GetKeyDown("w"))
-			{
-				direction = transform.parent.forward;
-				GetTangetPoint(direction);
-			}
-			if (Input.GetKeyDown("s"))
-			{
-				direction = transform.parent.forward * -1.0;
-				GetTangetPoint(direction);
-			}
+		
+//			if (applyForce)
+//			{
+//				direction = Camera.main.ScreenPointToRay (Input.GetTouch(0).position).origin;
+//				direction.y = transform.position.y;
+//				direction -= transform.position;
+//				var temp : String = " " +  direction.x + " " + direction.y + " " + direction.z;
+//				GUI.Button (Rect (50, 50,100, 100), temp);
+//				
+//			}
+			
+			Debug.Log("Mouse pos = " + Input.mousePosition);
+			direction = Camera.main.ScreenPointToRay (Input.mousePosition).origin;
 			
 			#if UNITY_ANDROID
-			//if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetTouch(0).phase == TouchPhase.Began) && !create_tension)
-			if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)// && !create_tension)
-			{
-				doubleTouch = false;
-				//create_tension = true;
-				direction = Camera.main.ScreenPointToRay (Input.GetTouch(0).position).origin;
-				direction.y = transform.position.y;
-				GetTangetPoint(direction.normalized);
-			}
+			direction = Camera.main.ScreenPointToRay (Input.GetTouch(0).position).origin;
 			#endif
+			
+			direction.y = transform.position.y;
+			direction -= transform.position;
+			
+			Debug.Log("Direction = " + direction);
+			GetTangetPoint(direction.normalized);
+			
+//			#if UNITY_ANDROID
+//			//if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetTouch(0).phase == TouchPhase.Began) && !create_tension)
+//			//if (Input.touchCount == 1 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved))// && !create_tension)
+//			if (Input.touchCount == 1 && (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary))
+//			{
+//				doubleTouch = false;
+//				applyForce = true;
+//			}
+//			#endif
 			
 		}		
 	}
+	else
+	{
+		Energy_Hook_Obj.GetComponent(HookAnimation).Reset();
+	}
+	
+	if (Input.GetMouseButton(0))
+	{
+		doubleTouch = false;
+		create_tension = true;
+		Debug.Log("Mouse down");
+	}
+	else// if (Input.GetMouseButtonUp(0))
+	{
+		Debug.Log("Mouse not down");
+		doubleTouch = false;
+		//applyForce = false;
+		Energy_Hook_Obj.GetComponent(HookAnimation).Reset();
+	}
 	
 	#if UNITY_ANDROID
-	if (Input.GetTouch(0).phase == TouchPhase.Ended && !doubleTouch)
+	//if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetTouch(0).phase == TouchPhase.Began) && !create_tension)
+	//if (Input.touchCount == 1 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved))// && !create_tension)
+	if (Input.touchCount == 1 && (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary))
 	{
+		doubleTouch = false;
+		create_tension = true;
+	}
+	else// if (Input.touchCount == 0)//1 Input.GetTouch(0).phase == TouchPhase.Ended && !doubleTouch)
+	{
+		create_tension = false;
 		create_tension = false;
 		Energy_Hook_Obj.GetComponent(HookAnimation).Reset();
 	}
@@ -217,4 +246,16 @@ function CreateEnergyWave()
 	}
 	
 	transform.GetComponent(GlobalVariablesHolder).ENERGY -= energy_wave;
+}
+
+function OnLevelWasLoaded(level : int)
+{
+	#if UNITY_ANDROID
+	
+	if (level == 4 || level == 5)
+	{
+		Camera.main.transform.eulerAngles.y = 90;
+		Camera.main.camera.orthographicSize = 147.54;
+	}
+	#endif
 }
