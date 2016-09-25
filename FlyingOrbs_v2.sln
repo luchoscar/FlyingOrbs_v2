@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{46F4B72E-EBBB-74D4-B32F-4C317B196001}") = "FlyingOrbs_v2", "Assembly-CSharp-firstpass.csproj", "{17F0F426-ECE8-BFBA-38AD-8312D9BE2304}"
 EndProject
+Project("{46F4B72E-EBBB-74D4-B32F-4C317B196001}") = "FlyingOrbs_v2", "Assembly-CSharp.csproj", "{A98D57B0-6EB4-1652-BAE0-AC7892B5F4F2}"
+EndProject
 Project("{46F4B72E-EBBB-74D4-B32F-4C317B196001}") = "FlyingOrbs_v2", "Assembly-UnityScript-firstpass.unityproj", "{CB3961DA-2992-3094-49D3-3188BE0050D6}"
 EndProject
 Project("{46F4B72E-EBBB-74D4-B32F-4C317B196001}") = "FlyingOrbs_v2", "Assembly-UnityScript.unityproj", "{E56FAEE0-B0F6-4145-10BB-4C16083BDA53}"
@@ -17,6 +19,10 @@ Global
 		{17F0F426-ECE8-BFBA-38AD-8312D9BE2304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F0F426-ECE8-BFBA-38AD-8312D9BE2304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F0F426-ECE8-BFBA-38AD-8312D9BE2304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98D57B0-6EB4-1652-BAE0-AC7892B5F4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98D57B0-6EB4-1652-BAE0-AC7892B5F4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98D57B0-6EB4-1652-BAE0-AC7892B5F4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98D57B0-6EB4-1652-BAE0-AC7892B5F4F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB3961DA-2992-3094-49D3-3188BE0050D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB3961DA-2992-3094-49D3-3188BE0050D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB3961DA-2992-3094-49D3-3188BE0050D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+						GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -47,4 +53,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
+
 EndGlobal
