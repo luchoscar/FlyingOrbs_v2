@@ -12,5 +12,5 @@ function Start () {
 
 function Update () 
 {
-	transform.GetChild(0).guiText.text = transform.GetComponent(GlobalVariablesHolder).SCORE.ToString();
+	transform.GetChild(0).GetComponent.<GUIText>().text = transform.GetComponent(GlobalVariablesHolder).SCORE.ToString();
 }

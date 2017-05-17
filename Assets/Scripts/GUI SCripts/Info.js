@@ -6,7 +6,7 @@
 
 function Awake ()
 {
-	transform.guiText.text = "Collect all Energy Orbs (RED)\nUse energy hock to change direction\nby touching screen with one finger\nCreate an energy wave by tapping\nscreen with two fingers";
+	transform.GetComponent.<GUIText>().text = "Collect all Energy Orbs (RED)\nUse energy hock to change direction\nby touching screen with one finger\nCreate an energy wave by tapping\nscreen with two fingers";
 }
 
 function Start () {

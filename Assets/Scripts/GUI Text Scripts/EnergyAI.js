@@ -24,7 +24,7 @@ function Update ()
 	score_str = transform.GetComponent(GlobalVariablesHolder).ENERGY.ToString();
 	score_str = TrunckateString(score_str);
 	
-	transform.GetChild(0).guiText.text =  score_str + "%";
+	transform.GetChild(0).GetComponent.<GUIText>().text =  score_str + "%";
 }
 
 function TrunckateString(string_In : String) : String

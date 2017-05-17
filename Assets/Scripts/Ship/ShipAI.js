@@ -35,7 +35,7 @@ function Start ()
 {
 	#if UNITY_ANDROID
 	Camera.main.transform.eulerAngles.y = 90;
-	Camera.main.camera.orthographicSize = 147.54;
+	Camera.main.GetComponent.<Camera>().orthographicSize = 147.54;
 	#endif
 }
 
@@ -255,7 +255,7 @@ function OnLevelWasLoaded(level : int)
 	if (level == 4 || level == 5)
 	{
 		Camera.main.transform.eulerAngles.y = 90;
-		Camera.main.camera.orthographicSize = 147.54;
+		Camera.main.GetComponent.<Camera>().orthographicSize = 147.54;
 	}
 	#endif
 }

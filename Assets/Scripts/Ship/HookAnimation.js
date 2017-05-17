@@ -53,10 +53,10 @@ function SetEndHock(position_In : Vector3)
 	Hook_Position = position_In;
 	animate = true;
 	
-	if (transform.collider == null)
+	if (transform.GetComponent.<Collider>() == null)
 		transform.gameObject.AddComponent(BoxCollider);	//add collider component to this object
 		
-	transform.collider.isTrigger = animate;
+	transform.GetComponent.<Collider>().isTrigger = animate;
 }
 
 //function to set energy hock back to default values when animation is over
@@ -66,6 +66,6 @@ function Reset()
 	transform.forward = Ship_Object.parent.forward;
 	End_Hock_Object.position = Ship_Object.position;
 	animate = false;
-	Destroy(transform.collider);		//remove collider component
+	Destroy(transform.GetComponent.<Collider>());		//remove collider component
 	transform.localScale.z = default_scale_z;
 }

@@ -8,7 +8,7 @@
 
 function Awake () 
 {
-	transform.particleSystem.startColor = Color(Random.Range(0.0,1.0),Random.Range(0.0,1.0), Random.Range(0.0,1.0));
+	transform.GetComponent.<ParticleSystem>().startColor = Color(Random.Range(0.0,1.0),Random.Range(0.0,1.0), Random.Range(0.0,1.0));
 }
 
 function Update () {
