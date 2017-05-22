@@ -1,8 +1,7 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
+﻿
 using UnityEngine;
 
-public class PlanetOrbitting : MonoBehaviour
+public class PlanetOrbitting : OrbitMovement
 {
     // Use this for initialization
     void Start () {
@@ -15,38 +14,34 @@ public class PlanetOrbitting : MonoBehaviour
 		switch(_state)
         {
             case State.ORBITIN:
-                _orbitShip();
+                _orbitPlanet();
+                break;
+            default:
                 break;
         }
 	}
 
-    public void LandOnPlanet(PlanetData p_planet)
+    public override void LandOnPlanet(PlanetData p_planet)
     {
         _placeOnSurface(p_planet.transform);
 
 
         _planetFriction = 1.0f - p_planet.planetCost;
 
-        setMovementCost(DrivingMode.DEFAULT);
+        _setMovementCost(DrivingMode.DEFAULT);
 
         _state = State.ORBITIN;
     }
 
     //--- Private Implementation ----------------------------------------------
 
-    private void _orbitShip()
+    private void _orbitPlanet()
     {
-        transform.RotateAround(
-            _pivotPoint,
-            transform.right, 
-            _currentForwardSpeed * Time.deltaTime
-        );
+        int linearDirection = InputManager.GetLinerDirection();
+        _forwardOrbitPlanet(linearDirection);
 
-        transform.RotateAround(
-            _pivotPoint,
-            transform.up,
-            _currentTurningSpeed * Time.deltaTime
-        );
+        int turnDirecion = InputManager.GetTurnDirection();
+        _turnOrbitPlanet(turnDirecion);
 
         Debug.DrawRay(transform.position, transform.forward * 2.0f, Color.red, 2.0f);
     }
@@ -67,7 +62,7 @@ public class PlanetOrbitting : MonoBehaviour
         _drivingMode = DrivingMode.DEFAULT;
     }
 
-    private void setMovementCost(DrivingMode p_mode)
+    private void _setMovementCost(DrivingMode p_mode)
     {
         switch (p_mode)
         {
@@ -108,11 +103,7 @@ public class PlanetOrbitting : MonoBehaviour
         _currentTurningSpeed    = delta * _turnningSpeed * _planetFriction;
         _currentEnergyCostDelta = delta * _energyCostDelta * _planetFriction;
     }
-
-    [SerializeField]
-    //private Transform _pivotPoint;
-    private Vector3 _pivotPoint;
-
+    
     [SerializeField]
     private float _forwardSpeed;
 
@@ -133,8 +124,6 @@ public class PlanetOrbitting : MonoBehaviour
     }
     private DrivingMode _drivingMode = DrivingMode.DEFAULT;
 
-    private float _currentForwardSpeed;
-    private float _currentTurningSpeed;
     private float _currentEnergyCostDelta;
     private float _planetFriction;
 
