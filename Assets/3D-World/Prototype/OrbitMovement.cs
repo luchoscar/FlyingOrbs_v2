@@ -3,6 +3,13 @@ using UnityEngine;
 
 public abstract class OrbitMovement : MonoBehaviour
 {
+    public enum ObjectType
+    {
+        SHIP,
+        RESOURCE
+    }
+
+    public abstract ObjectType objectType { get; }
     public abstract void LandOnPlanet(PlanetData p_planet);
 
     protected void _forwardOrbitPlanet(int p_direction)

@@ -20,6 +20,7 @@ public class PlanetOrbitting : OrbitMovement
                 break;
         }
 	}
+    public override ObjectType objectType { get { return ObjectType.SHIP; } }
 
     public override void LandOnPlanet(PlanetData p_planet)
     {
