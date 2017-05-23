@@ -22,11 +22,15 @@ public class ResourceOrbit : OrbitMovement
         transform.up = direction;
 
         transform.parent = planetTransform;
+
+        _forwardDirection = 1;
+        _turningDirection = 0;
+        _forwardMovementAxis = transform.right;
     }
 
     private void Update()
     {
-        _forwardOrbitPlanet(1);
+        _forwardOrbitPlanet();
 
         Debug.DrawRay(transform.position, transform.forward * 2.0f, Color.yellow, 2.0f);
     }

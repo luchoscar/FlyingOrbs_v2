@@ -1,32 +1,15 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class PlanetOrbitting : OrbitMovement
 {
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		switch(_state)
-        {
-            case State.ORBITIN:
-                _orbitPlanet();
-                break;
-            default:
-                break;
-        }
-	}
     public override ObjectType objectType { get { return ObjectType.SHIP; } }
 
     public override void LandOnPlanet(PlanetData p_planet)
     {
         _placeOnSurface(p_planet.transform);
-
-
+        
         _planetFriction = 1.0f - p_planet.planetCost;
 
         _setMovementCost(DrivingMode.DEFAULT);
@@ -34,17 +17,45 @@ public class PlanetOrbitting : OrbitMovement
         _state = State.ORBITIN;
     }
 
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        switch (_state)
+        {
+            case State.ORBITIN:
+                _orbitPlanet();
+                break;
+            default:
+                break;
+        }
+    }
+
     //--- Private Implementation ----------------------------------------------
 
     private void _orbitPlanet()
     {
-        int linearDirection = InputManager.GetLinerDirection();
-        _forwardOrbitPlanet(linearDirection);
+        _forwardMovementAxis = transform.right;
 
-        int turnDirecion = InputManager.GetTurnDirection();
-        _turnOrbitPlanet(turnDirecion);
+        _forwardDirection = InputManager.GetLinerDirection();
+        _forwardOrbitPlanet();
 
-        Debug.DrawRay(transform.position, transform.forward * 2.0f, Color.red, 2.0f);
+        _turningDirection = InputManager.GetTurnDirection();
+        _turnOrbitPlanet();
+
+        Debug.DrawRay(
+            transform.position, 
+            transform.forward * 2.0f, 
+            Color.red, 
+            2.0f
+        );
+
+        Debug.Log(_currentForwardSpeed + " " + _turnningSpeed);
     }
 
     private void _placeOnSurface(Transform p_planet)
@@ -132,6 +143,7 @@ public class PlanetOrbitting : OrbitMovement
     {
         IDLE = 0,
         LANDING,
+        LANDING_COMPLETED,
         ORBITIN,
         LAUNCHING,
         TRAVELING
