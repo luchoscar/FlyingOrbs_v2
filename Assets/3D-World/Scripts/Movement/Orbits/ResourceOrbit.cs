@@ -37,13 +37,29 @@ public class ResourceOrbit : OrbitMovement
 
     //--- Private Implementation ----------------------------------------------
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider p_collider)
     {
-        GameObject colliderObject = collision.gameObject;
+        GameObject colliderObject = p_collider.gameObject;
         OrbitMovement movement = colliderObject.GetComponent<OrbitMovement>();
+
+        Debug.Log(
+            string.Format(
+                "Colliding {0} - {1}",
+                transform.GetInstanceID(),
+                colliderObject.GetInstanceID()
+            )
+        );
 
         if (_objectsCannotCollider(movement))
             return;
+
+        Debug.Log(
+            string.Format(
+                "Process collision {0} - {1}",
+                transform.GetInstanceID(),
+                colliderObject.GetInstanceID()
+            )
+        );
     }
 
     

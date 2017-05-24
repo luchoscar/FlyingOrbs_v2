@@ -1,7 +1,8 @@
 ﻿
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public PlanetData planet;
     public PlanetOrbitting ship;

@@ -54,8 +54,6 @@ public class PlanetOrbitting : OrbitMovement
             Color.red, 
             2.0f
         );
-
-        Debug.Log(_currentForwardSpeed + " " + _turnningSpeed);
     }
 
     private void _placeOnSurface(Transform p_planet)
