@@ -1,9 +1,11 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class ResourceOrbit : OrbitMovement
 {
     public override ObjectType objectType { get { return ObjectType.RESOURCE; } }
+    public override float collisionRadius { get { return _collisionRadius; } }
 
     public override void LandOnPlanet(PlanetData p_planet)
     {
@@ -13,7 +15,7 @@ public class ResourceOrbit : OrbitMovement
         _currentForwardSpeed = _forwardSpeed;
         _pivotPoint = p_planet.transform.position;
 
-        Vector3 direction = Random.onUnitSphere.normalized;
+        Vector3 direction = UnityEngine.Random.onUnitSphere.normalized;
 
         Transform planetTransform = p_planet.transform;
         transform.position = planetTransform.position +
@@ -28,6 +30,15 @@ public class ResourceOrbit : OrbitMovement
         _forwardMovementAxis = transform.right;
     }
 
+    public override void Kill()
+    {
+        base.Kill();
+
+        //TODO: Kill ship: game over
+    }
+
+    //--- Unity ---------------------------------------------------------------
+
     private void Update()
     {
         _forwardOrbitPlanet();
@@ -41,6 +52,9 @@ public class ResourceOrbit : OrbitMovement
     {
         GameObject colliderObject = p_collider.gameObject;
         OrbitMovement movement = colliderObject.GetComponent<OrbitMovement>();
+
+        if (movement == null)
+            return;
 
         Debug.Log(
             string.Format(
@@ -86,4 +100,7 @@ public class ResourceOrbit : OrbitMovement
 
     private float _forwardSpeed;
     private float _turnSpeed;
+
+    [SerializeField]
+    private float _collisionRadius = 1.5f;
 }

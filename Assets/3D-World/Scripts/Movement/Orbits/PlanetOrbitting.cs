@@ -5,9 +5,12 @@ using UnityEngine;
 public class PlanetOrbitting : OrbitMovement
 {
     public override ObjectType objectType { get { return ObjectType.SHIP; } }
+    public override float collisionRadius { get { return _collisionRadius; } }
 
     public override void LandOnPlanet(PlanetData p_planet)
     {
+        base.LandOnPlanet(p_planet);
+
         _placeOnSurface(p_planet.transform);
         
         _planetFriction = 1.0f - p_planet.planetCost;
@@ -17,10 +20,11 @@ public class PlanetOrbitting : OrbitMovement
         _state = State.ORBITIN;
     }
 
-    // Use this for initialization
-    void Start()
+    public override void Kill()
     {
+        base.Kill();
 
+        //TODO: Animate towards ship, update energy and kill resource
     }
 
     // Update is called once per frame
@@ -48,12 +52,20 @@ public class PlanetOrbitting : OrbitMovement
         _turningDirection = InputManager.GetTurnDirection();
         _turnOrbitPlanet();
 
+        if (_forwardDirection != 0 || _turningDirection != 0)
+            _consumeEnergy();
+
         Debug.DrawRay(
             transform.position, 
             transform.forward * 2.0f, 
             Color.red, 
             2.0f
         );
+    }
+
+    private void _consumeEnergy()
+    {
+        _energyAvailable -= (_currentEnergyCostDelta * Time.deltaTime);
     }
 
     private void _placeOnSurface(Transform p_planet)
@@ -92,13 +104,13 @@ public class PlanetOrbitting : OrbitMovement
 
     private void _setEnergySaverMode()
     {
-        float delta = 1 - _energySavings;
+        float delta = 1.0f - _energySavings;
         _modifyProperties(delta);
     }
 
     private void _setOverdriveMode()
     {
-        float delta = 1 + _energySavings;
+        float delta = 1.0f + _energySavings;
         _modifyProperties(delta);
     }
 
@@ -109,11 +121,14 @@ public class PlanetOrbitting : OrbitMovement
 
     private void _modifyProperties(float delta)
     {
-        _currentForwardSpeed    = delta * _forwardSpeed * _planetFriction;
-        _currentTurningSpeed    = delta * _turnningSpeed * _planetFriction;
+        _currentForwardSpeed    = delta * _forwardSpeed    * _planetFriction;
+        _currentTurningSpeed    = delta * _turnningSpeed   * _planetFriction;
         _currentEnergyCostDelta = delta * _energyCostDelta * _planetFriction;
     }
-    
+
+    [SerializeField]
+    private float _energyAvailable = 1.0f;
+
     [SerializeField]
     private float _forwardSpeed;
 
@@ -147,4 +162,7 @@ public class PlanetOrbitting : OrbitMovement
         TRAVELING
     }
     private State _state = State.IDLE;
+
+    [SerializeField]
+    private float _collisionRadius = 1.5f;
 }

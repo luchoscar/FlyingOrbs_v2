@@ -1,16 +1,10 @@
 ﻿
+using System;
 using UnityEngine;
 
-public abstract class OrbitMovement : MonoBehaviour
+public abstract class OrbitMovement : OrbitalObject
 {
-    public enum ObjectType
-    {
-        SHIP,
-        RESOURCE
-    }
-
-    public abstract ObjectType objectType { get; }
-    public abstract void LandOnPlanet(PlanetData p_planet);
+    public Transform collisionSphere;
 
     public float forwardVelocity
     {
@@ -22,7 +16,16 @@ public abstract class OrbitMovement : MonoBehaviour
         get { return _turningDirection * _currentTurningSpeed; }
     }
 
-    public Vector3 forwardMovmentAxis {  get { return _forwardMovementAxis; } } 
+    public Vector3 forwardMovmentAxis {  get { return _forwardMovementAxis; } }
+
+    public override void LandOnPlanet(PlanetData p_planet)
+    {
+        collisionSphere.localScale = new Vector3(
+            collisionRadius,
+            collisionRadius,
+            collisionRadius
+        );
+    }
 
     //--- Protected Implementation --------------------------------------------
 
